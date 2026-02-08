@@ -1,0 +1,39 @@
+//################################################################
+//##  PLATFORM: Microsoft Exchange Online (Email Security Gateway)
+//##  AUTHOR: IGOR OLIVEIRA (#IO)
+//##  LOCATION: Microsoft Sentinel | Logs
+//##  TITLE: KQL to automate phishing investigation by Subject
+//################################################################
+let subjectAutoInvestigation = {Subject-Line};
+let SampleTenantId = "a4187cae-cdf5-1276-9884-4668cd08d129";
+let Subject_Lookup =
+EmailEvents
+    | where TimeGenerated > ago(90d)
+    | where Subject contains subjectAutoInvestigation
+    | summarize 
+        emailCount = count(),
+        FirstEmailDate = min(TimeGenerated),
+        LastEmailDate = max(TimeGenerated)
+    by RecipientEmailAddress, Subject;
+let EmailSample =
+    EmailEvents
+    | where TimeGenerated > ago(90d)
+    | where Subject contains subjectAutoInvestigation
+    | summarize arg_max(TimeGenerated, NetworkMessageId) by RecipientEmailAddress, Subject;
+Subject_Lookup
+| join kind=inner (EmailSample) on RecipientEmailAddress, Subject
+| extend
+    EmailDetails = strcat(
+    "https://security.microsoft.com/emailentity?f=summary&startTime=",
+    tostring(TimeGenerated),
+    "&endTime=",
+    tostring(TimeGenerated),
+    "&id=",
+    NetworkMessageId,
+    "&recipient=",
+    RecipientEmailAddress,
+    "&tid=",
+    SampleTenantId
+)
+| project FirstEmailDate, LastEmailDate, RecipientEmailAddress, Subject, emailCount, EmailDetails
+| order by emailCount desc
