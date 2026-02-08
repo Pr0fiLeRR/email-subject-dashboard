@@ -3,11 +3,14 @@
 <h2>Automated Dashboard - View by Subject<h2>
 
 <h3>MITRE ATT&CK</h3>
-- [T1566 - Phishing] (https://attack.mitre.org/techniques/T1566/)
+
+- [T1566 - Phishing](https://attack.mitre.org/techniques/T1566/)
 
 <h3>Instructions</h3>
+
 - <b>Line 7</b>
     - Contains the [parameter](https://learn.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-parameters) named <i>Subject-Line</i> that's used to collect input from the incident.
+
 - <b>Line 8</b>
     - Needs to contain the proper TenantID of the company you work for, that set of characters is a placeholder.
 
