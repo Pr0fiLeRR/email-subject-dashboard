@@ -1,6 +1,6 @@
 <h1>Detection as Code</h1>
 
-<h2>Automated Dashboard - View by Subject<h2>
+<h2>Automated Dashboard - View by Subject</h2>
 
 <h3>MITRE ATT&CK</h3>
 
