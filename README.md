@@ -6,9 +6,9 @@
 
 ### Instructions
 
-- <b>Line 7</b>
+- Line 7
     - Contains the [parameter](https://learn.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-parameters) named <i>Subject-Line</i> that's used to collect input from the incident.
-- <b>Line 8</b>
+- Line 8
     - Needs to contain the proper TenantID of the company you work for, that set of characters is a placeholder.
 <br/>
 <img align="left" alt="Detections.ai logo" width="120px" src="https://detections.ai/detections-logo-navbar.svg"/>
